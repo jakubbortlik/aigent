@@ -1,4 +1,5 @@
 import os
+import sys
 from dotenv import load_dotenv
 from google import genai
 
@@ -7,14 +8,11 @@ load_dotenv()
 api_key = os.environ.get("GEMINI_API_KEY")
 
 
-def main():
+def main(prompt):
     client = genai.Client(api_key=api_key)
     response = client.models.generate_content(
         model="gemini-2.0-flash-001",
-        contents=(
-            "Why is Boot.dev such a great place to learn backend development? "
-            "Use one paragraph maximum."
-        ),
+        contents=prompt,
     )
     print(response.text)
     print(f"Prompt tokens: {response.usage_metadata.prompt_token_count}")
@@ -22,4 +20,8 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    if len(sys.argv) == 1:
+        print("Error: You must provide a prompt.")
+        sys.exit(1)
+    prompt = " ".join(sys.argv[1:])
+    main(prompt)
