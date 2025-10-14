@@ -8,7 +8,7 @@ load_dotenv()
 api_key = os.environ.get("GEMINI_API_KEY")
 
 
-def main(prompt, verbose):
+def main(prompt: str, verbose: bool) -> None:
     client = genai.Client(api_key=api_key)
 
     messages = [genai.types.Content(role="user", parts=[genai.types.Part(text=prompt)])]
@@ -21,7 +21,6 @@ def main(prompt, verbose):
         print(f"User prompt: {prompt}")
         print(f"Prompt tokens: {response.usage_metadata.prompt_token_count}")
         print(f"Response tokens: {response.usage_metadata.candidates_token_count}")
-
 
 
 if __name__ == "__main__":
