@@ -1,8 +1,6 @@
 import os
 
-
-def format_error(message: str) -> str:
-    return f"    Error: {message}"
+from common.errors import format_error
 
 
 def get_files_info(working_directory: str, directory: str = ".") -> str:
